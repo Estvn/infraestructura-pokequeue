@@ -1,6 +1,6 @@
 # sa para queue y blob
-resource "azurerm_storage_account" "sa" {
-    name                     = "sa${lower(var.project)}${lower(var.environment)}"
+resource "azurerm_storage_account" "saccount" {
+    name                     = "saccount${lower(var.project)}${lower(var.environment)}"
     resource_group_name      = azurerm_resource_group.rg.name
     location                 = var.location
 
@@ -15,13 +15,13 @@ resource "azurerm_storage_account" "sa" {
 resource "azurerm_storage_container" "container" {
     name = "reportes"
     container_access_type = "private"
-    storage_account_id = azurerm_storage_account.sa.id
+    storage_account_id = azurerm_storage_account.saccount.id
 }
 
 # Contiene peticiones de los reportes que se solicitarán
 resource "azurerm_storage_queue" "queue" {
     name                 = "request"
-    storage_account_name  = azurerm_storage_account.sa.name  
+    storage_account_name  = azurerm_storage_account.saccount.name  
 }
 
 # sa para function app
